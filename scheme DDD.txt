@@ -1,0 +1,138 @@
+classDiagram
+
+    class Organization{
+        + List<OrganizationDocument> Documents
+        + List<Building> Buildings
+        - CreateOrganization()
+        - ChangeOrganizationData()
+    }
+
+class OrganizationData {
+    + String Name
+    + String Shortname
+    + String DirectorFullName
+    +
+    +
+    +
+    +
+    +
+    +
+
+}
+
+class OrganizationDocument{
+    + Guid Id
+    + OrganizationDocumentType Type
+    + String Name
+    + Int Year
+    + Int Version
+    + String Link
+    - CreateDocument()
+    - ChangeDocument()
+    - DeleteDocument()
+}
+
+class OrganizationDocumentType{
+    + Guid Id
+    + String TypeName
+    + String NickName
+    + Bool IsAddToReport
+    - CreateType()
+    - ChangeType()
+    - DeleteType()
+}
+
+class Building{
+    + Guid Id
+    + List<BuildingDocument> Documents
+    + Bool IsManagementing
+    + SetStateIsManagementing()
+    - CreateBuilding()
+    - ChangeBuildingData()
+}
+
+
+class BuildingData{
+    + Guid Id
+    + String StreetName
+    + String Number
+    + Int ConstructYear
+    + String StagesAmount
+    + Int EntranceAmount
+    + Int LiftEmount
+    + Int FlatAmount
+}
+
+
+class BuildingDocument{
+    + Guid Id
+    + BuildingDocumentType Type
+    + String Name
+    + Int Year
+    + Int Version
+    + String Link
+    - CreateDocument()
+    - ChangeDocument()
+    - DeleteDocument()
+}
+
+class BuildingDocumentType{
+    + Guid Id
+    + String Name
+    + String NickName
+    + Bool IsAddToReport
+    - CreateType()
+    - ChangeType()
+    - DeleteType()
+}
+
+class InformationDisclouser_Autogenerate{
+    + Guid Id
+    + Int Year
+    + List<OrganizationDocument> OrganizationDocuments
+    + List<BuildingDocument> BuildingDocuments
+}
+
+
+class Rate{
+    + RateType Type
+    + Name
+    + Date StartPeriod
+    + Date EndPeriod
+    + Int Version
+    + String Link
+    - CreateRate()
+    - ChangeRate()
+    - DeleteRate()
+}
+
+class RateType{
+    + Guid Id
+    + String Name
+    + String NickName
+    - CreateType()
+    - ChangeType()
+    - DeleteType()
+}
+    
+
+
+
+
+Organization "1" --> "0..*" Building
+Organization --o OrganizationData 
+Building --o BuildingData 
+
+
+Organization "1" --> "0..*" OrganizationDocument
+Building "1" --> "0..*" BuildingDocument
+
+OrganizationDocumentType "1" --> "0..*" OrganizationDocument
+BuildingDocumentType "1" --> "0..*" BuildingDocument
+
+
+InformationDisclouser_Autogenerate "1" --> "0..*" OrganizationDocument
+InformationDisclouser_Autogenerate "1" --> "0..*" BuildingDocument
+
+
+RateType "1" --> "0..*" Rate
