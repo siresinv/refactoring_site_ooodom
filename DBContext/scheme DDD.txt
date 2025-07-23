@@ -1,0 +1,110 @@
+classDiagram
+
+class Company{
+    + Guid Id
+    + List<Unit> Units
+}
+
+class CompanyCard {
+    + Guid Id
+    + String Name
+    + String Shortname
+    + String DirectorFullName
+    + String Ugrl
+    + String Post
+    + String Address
+    + List<Phone> Phones
+    + String Email
+    + String Site
+    + List<Work_Hour> Work_Hours
+    + List<Reception> Receptions
+    + List<Document> Documents
+    + String LocationLink
+}
+
+
+class Phone{
+    + Guid Id
+    + String Name
+    + String Value
+}
+
+class Work_Hour{
+    + Guid Id
+    + String Name
+    + String Value
+}
+
+class Reception{
+    + Guid Id
+    + String Name
+    + String Value
+}
+
+
+
+class Unit{
+    + Guid Id
+    + List<UnitDocument> Documents
+}
+
+
+class UnitCard{
+    + Guid Id
+    + String StreetName
+    + String Number
+    + Int ConstructYear
+    + String StagesAmount
+    + Int EntranceAmount
+    + Int LiftEmount
+    + Int FlatAmount
+    + Bool IsManagementing
+}
+
+
+class UnitDocument{
+    + Guid UnitId
+    + Guid DocumentId
+}
+
+class Document{
+    + Guid Id
+    + DocumentType Type
+    + String Name
+    + Date Year
+    + Int Version
+    + String StorageLink
+}
+
+class DocumentType{
+    + Guid Id
+    + String Name
+    + String NickName
+    + List<Document> Documents
+}
+
+class Report{
+    + Guid Id
+    + String Name
+    + String NickName
+    + List<DocumentType> DocumentTypes
+}
+
+
+Company "1" --> "0..*" Unit
+Company --o CompanyCard
+Unit --o UnitCard
+
+CompanyCard "1" --> "0..*" Phone
+CompanyCard "1" --> "0..*" Work_Hour
+CompanyCard "1" --> "0..*" Reception
+
+
+
+Report "1" --> "0..*" DocumentType
+DocumentType "1" --> "0..*" Document
+
+Unit "1" --> "0..*" UnitDocument
+Document "1" --> "1" UnitDocument
+
+
