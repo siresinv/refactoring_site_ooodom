@@ -1,0 +1,37 @@
+ Создай ограничение, при котором Юниты содержат только документы с типом unit
+
+
+
+Вам нужно добавить ограничение, чтобы таблица UnitDocument позволяла связывать только те документы, у которых тип (DocumentType) равен "unit". В SQL Server (и большинстве СУБД) это делается через CHECK CONSTRAINT с подзапросом, но стандартный CHECK не поддерживает подзапросы к другим таблицам.
+
+Для такой задачи обычно используют триггер или реализуют через VIEW/INSTEAD OF TRIGGER, либо через дополнительную валидацию на уровне приложения.
+
+**Пример через триггер (SQL Server):**
+
+```sql
+CREATE TRIGGER trg_UnitDocument_OnlyUnitType
+ON UnitDocument
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM inserted i
+        JOIN Document d ON i.DocumentId = d.Id
+        JOIN DocumentType dt ON d.DocumentTypeId = dt.Id
+        WHERE dt.Name <> 'unit'
+    )
+    BEGIN
+        RAISERROR('Можно добавлять только документы с типом unit', 16, 1);
+        ROLLBACK TRANSACTION;
+    END
+END;
+```
+
+**Что делает этот триггер:**
+- После вставки или обновления в UnitDocument он проверяет, что все связанные документы имеют тип "unit".
+- Если найден хотя бы один документ с другим типом, операция отменяется с ошибкой.
+
+Если вы используете другую СУБД — уточните, и я подскажу синтаксис для вашей системы.
+
+Хотите, чтобы я добавил этот триггер прямо в ваш файл creat.sql?

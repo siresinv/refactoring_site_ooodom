@@ -1,0 +1,79 @@
+
+В таблице User добавь такие ограничения: первое - поле date должно быть обязательным, если  в таблице Type поле isRequeredDate соответствующее типу в записи таблицы User равно true
+второе - поле name должно быть обязательным, если  в таблице Type поле isRequeredName соответствующее типу в записи таблицы User равно true
+
+
+Вам нужно реализовать условные ограничения (conditional constraints) на уровне базы данных: поле `date` в таблице `User` обязательно, если для соответствующего типа в таблице `Type` поле `isRequeredDate = true`, и аналогично для поля `name` и `isRequeredName`.
+
+В SQL Server (и большинстве СУБД) нельзя напрямую создать CHECK CONSTRAINT, который ссылается на другую таблицу. Для таких задач обычно используют триггеры.
+
+Вот пример, как это реализовать с помощью триггера:
+
+```sql
+-- Предполагается, что поля isRequeredDate и isRequeredName имеют тип BIT, а не BOOLEAN
+-- Если BOOLEAN, замените на BIT
+
+-- Триггер для проверки условий при вставке и обновлении
+CREATE TRIGGER trg_User_Conditional_Constraints
+ON [dbo].[User]
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    -- Проверка обязательности поля date
+    IF EXISTS (
+        SELECT 1
+        FROM inserted i
+        JOIN [dbo].[Type] t ON i.[type] = t.[id]
+        WHERE t.[isRequeredDate] = 1 AND i.[date] IS NULL
+    )
+    BEGIN
+        RAISERROR('Поле date обязательно для выбранного типа.', 16, 1);
+        ROLLBACK TRANSACTION;
+        RETURN;
+    END
+
+    -- Проверка обязательности поля name
+    IF EXISTS (
+        SELECT 1
+        FROM inserted i
+        JOIN [dbo].[Type] t ON i.[type] = t.[id]
+        WHERE t.[isRequeredName] = 1 AND (i.[name] IS NULL OR LTRIM(RTRIM(i.[name])) = '')
+    )
+    BEGIN
+        RAISERROR('Поле name обязательно для выбранного типа.', 16, 1);
+        ROLLBACK TRANSACTION;
+        RETURN;
+    END
+END
+```
+
+**Пояснения:**
+- Триггер срабатывает при вставке и обновлении записей в таблице `User`.
+- Если для типа пользователя в таблице `Type` стоит флаг `isRequeredDate = 1`, а поле `date` не заполнено — операция отменяется с ошибкой.
+- Аналогично для поля `name` и флага `isRequeredName`.
+- Типы данных для `isRequeredDate` и `isRequeredName` должны быть `BIT` (SQL Server не поддерживает тип `BOOLEAN`).
+
+**Рекомендация:**  
+Исправьте типы данных в вашей таблице `Type`:
+
+```sql
+ALTER TABLE [dbo].[Type]
+ALTER COLUMN [isRequeredDate] BIT NOT NULL;
+
+ALTER TABLE [dbo].[Type]
+ALTER COLUMN [isRequeredName] BIT NOT NULL;
+```
+
+Если нужно, помогу с корректировкой типов и добавлением триггера в ваш скрипт!
+
+
+
+
+
+
+********
+note for Document "Year date NULL CHECK (((Type=2 OR Type=3 OR Type=4) AND Year IS NOT NULL) OR (Type<>2 OR Type<>3 OR Type<>4))"
+note for Document "Поле Year не должно быть NULL, когда тип документа 2|3|4 т.е. unit|rate1|rate2"
+
+note for Document "Name char(MAX) NULL CHECK ((Type<>2 AND Name IS NOT NULL) OR Type=2)"
+note for Document "Поле Name не должно быть NULL, когда тип документа не равен 2 т.е. не unit"
