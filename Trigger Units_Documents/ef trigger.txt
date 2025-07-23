@@ -1,0 +1,29 @@
+Вам нужно реализовать бизнес-ограничение из триггера SQL средствами Entity Framework (EF): при добавлении или обновлении UnitDocument разрешать только такие документы, у которых тип (DocumentType.Name) равен "unit".
+
+В EF это реализуется через валидацию в контексте данных (DbContext) — например, в методе SaveChanges или SaveChangesAsync, либо через Fluent API/атрибуты, если ограничение можно выразить декларативно (в данном случае — только через код).
+
+План:
+1. Найти классы UnitDocument, Document, DocumentType.
+2. Найти/создать DbContext.
+3. Добавить переопределение SaveChanges/SaveChangesAsync с проверкой: все новые/изменённые UnitDocument должны ссылаться на Document, у которого DocumentType.Name == "unit".
+4. Если условие нарушено — выбрасывать исключение.
+
+Сейчас выясню, как устроены ваши сущности и контекст.
+Ran tool
+Ran tool
+Ran tool
+Read file: d:/Repos/siresinv/gamenumber/Entities/company/context.txt
+Read file: company/context.txt
+Read file: context.txt
+Read file: context.txt
+Read file: UnitDocument.cs
+Read file: Document.cs
+Read file: DocumentType.cs
+Ran tool
+В вашем проекте отсутствует файл GamenumberDbContext.cs, хотя его структура и код приведены в context.txt. Для реализации бизнес-валидации (аналог триггера) в Entity Framework нужно создать этот файл и добавить туда переопределение SaveChanges/SaveChangesAsync с соответствующей проверкой.
+
+Подтвердите, пожалуйста:
+- Создать файл GamenumberDbContext.cs на основе содержимого context.txt и добавить туда бизнес-валидацию, как описано выше?
+- Или файл уже существует, но не в этой папке — если да, укажите путь.
+
+Как только вы подтвердите, я создам файл с нужной логикой.

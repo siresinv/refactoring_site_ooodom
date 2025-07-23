@@ -1,0 +1,55 @@
+На основе @trigger.sql создай Entity Framework триггер для @CompanyDbContext
+
+В Entity Framework Core нет встроенной поддержки SQL-триггеров на уровне моделей, но можно реализовать аналогичную логику через перехватчики (interceptors), переопределение SaveChanges или событий жизненного цикла сущностей.
+
+Ваша задача: запретить добавление записей в таблицу UnitDocument, если связанный документ не имеет тип "unit". Это можно реализовать через переопределение SaveChanges в CompanyDbContext.
+
+Вот как это сделать:
+
+1. Переопределите метод SaveChanges и SaveChangesAsync в CompanyDbContext.
+2. Перед сохранением проверьте все новые или изменённые UnitDocument, и если тип документа не "unit", выбросьте исключение.
+
+Пример кода для CompanyDbContext.cs:
+
+```csharp
+// ... existing code ...
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
+public override int SaveChanges()
+{
+    ValidateUnitDocumentTypes();
+    return base.SaveChanges();
+}
+
+public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+{
+    ValidateUnitDocumentTypes();
+    return base.SaveChangesAsync(cancellationToken);
+}
+
+private void ValidateUnitDocumentTypes()
+{
+    var invalidUnitDocuments = ChangeTracker.Entries<UnitDocument>()
+        .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified)
+        .Select(e => e.Entity)
+        .Join(Documents, ud => ud.DocumentId, d => d.Id, (ud, d) => new { ud, d })
+        .Join(DocumentTypes, x => x.d.DocumentTypeId, dt => dt.Id, (x, dt) => new { x.ud, DocumentTypeName = dt.Name })
+        .Where(x => x.DocumentTypeName != "unit")
+        .ToList();
+
+    if (invalidUnitDocuments.Any())
+    {
+        throw new InvalidOperationException("Можно добавлять только документы с типом unit");
+    }
+}
+```
+
+**Куда вставить:**  
+Добавьте этот код внутрь класса CompanyDbContext, после конструктора и DbSet'ов, но до OnModelCreating.
+
+**Результат:**  
+Теперь при попытке добавить или изменить UnitDocument с документом не типа "unit" будет выброшено исключение, аналогично вашему SQL-триггеру.
+
+Если нужно — могу сразу внести этот код в ваш файл CompanyDbContext.cs.
