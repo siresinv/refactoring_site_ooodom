@@ -1,0 +1,11 @@
+using System;
+
+namespace Company.Entities
+{
+    public class Reception
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public string Value { get; set; }
+    }
+} 
