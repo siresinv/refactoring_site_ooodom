@@ -1,0 +1,8 @@
+CREATE TABLE [dbo].[User]
+(
+    [id] INT NOT NULL PRIMARY KEY, 
+    [name] VARCHAR(50) NOT NULL, 
+    [postcode] INT NOT NULL, 
+    [phone] INT NULL, 
+    CONSTRAINT CHK_Postcode CHECK (postcode >= 4000 OR Phone IS NOT NULL)
+);

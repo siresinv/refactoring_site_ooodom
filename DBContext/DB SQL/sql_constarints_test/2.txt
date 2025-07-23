@@ -1,0 +1,5 @@
+CREATE TABLE products (
+    product_no integer NOT NULL,
+    name text NOT NULL,
+    price numeric NULL CHECK ((text="abc" AND numeric IS NOT NULL) or text<>"abc")
+);

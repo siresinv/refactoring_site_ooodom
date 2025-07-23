@@ -1,0 +1,9 @@
+CREATE TABLE [dbo].[User]
+(
+    [id] INT NOT NULL PRIMARY KEY, 
+    [name] VARCHAR(50) NULL, 
+    [type] INT NOT NULL, 
+    CONSTRAINT CK_User_Name_NotNull_When_Type_Not2 CHECK (
+        ([type] = 2) OR ([name] IS NOT NULL)
+    )
+);
