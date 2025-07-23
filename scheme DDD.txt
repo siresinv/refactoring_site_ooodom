@@ -1,58 +1,55 @@
 classDiagram
 
-    class Organization{
-        + List<OrganizationDocument> Documents
-        + List<Building> Buildings
-        - CreateOrganization()
-        - ChangeOrganizationData()
-    }
+class Company{
+    + Guid Id
+    + List<Unit> Units
+}
 
-class OrganizationData {
+class CompanyCard {
+    + Guid Id
     + String Name
     + String Shortname
     + String DirectorFullName
-    +
-    +
-    +
-    +
-    +
-    +
-
+    + String Ugrl
+    + String Post
+    + String Address
+    + List<Phone> Phones
+    + String Email
+    + String Site
+    + List<Work_Hour> Work_Hours
+    + List<Reception> Receptions
+    + List<Document> Documents
+    + String LocationLink
 }
 
-class OrganizationDocument{
+
+class Phone{
     + Guid Id
-    + OrganizationDocumentType Type
     + String Name
-    + Int Year
-    + Int Version
-    + String Link
-    - CreateDocument()
-    - ChangeDocument()
-    - DeleteDocument()
+    + String Value
 }
 
-class OrganizationDocumentType{
+class Work_Hour{
     + Guid Id
-    + String TypeName
-    + String NickName
-    + Bool IsAddToReport
-    - CreateType()
-    - ChangeType()
-    - DeleteType()
+    + String Name
+    + String Value
 }
 
-class Building{
+class Reception{
     + Guid Id
-    + List<BuildingDocument> Documents
-    + Bool IsManagementing
-    + SetStateIsManagementing()
-    - CreateBuilding()
-    - ChangeBuildingData()
+    + String Name
+    + String Value
 }
 
 
-class BuildingData{
+
+class Unit{
+    + Guid Id
+    + List<UnitDocument> Documents
+}
+
+
+class UnitCard{
     + Guid Id
     + String StreetName
     + String Number
@@ -61,78 +58,53 @@ class BuildingData{
     + Int EntranceAmount
     + Int LiftEmount
     + Int FlatAmount
+    + Bool IsManagementing
 }
 
 
-class BuildingDocument{
+class UnitDocument{
+    + Guid UnitId
+    + Guid DocumentId
+}
+
+class Document{
     + Guid Id
-    + BuildingDocumentType Type
+    + DocumentType Type
     + String Name
-    + Int Year
+    + Date Year
     + Int Version
-    + String Link
-    - CreateDocument()
-    - ChangeDocument()
-    - DeleteDocument()
+    + String StorageLink
 }
 
-class BuildingDocumentType{
+class DocumentType{
     + Guid Id
     + String Name
     + String NickName
-    + Bool IsAddToReport
-    - CreateType()
-    - ChangeType()
-    - DeleteType()
+    + List<Document> Documents
 }
 
-class InformationDisclouser_Autogenerate{
-    + Guid Id
-    + Int Year
-    + List<OrganizationDocument> OrganizationDocuments
-    + List<BuildingDocument> BuildingDocuments
-}
-
-
-class Rate{
-    + RateType Type
-    + Name
-    + Date StartPeriod
-    + Date EndPeriod
-    + Int Version
-    + String Link
-    - CreateRate()
-    - ChangeRate()
-    - DeleteRate()
-}
-
-class RateType{
+class Report{
     + Guid Id
     + String Name
     + String NickName
-    - CreateType()
-    - ChangeType()
-    - DeleteType()
+    + List<DocumentType> DocumentTypes
 }
-    
+
+
+Company "1" --> "0..*" Unit
+Company --o CompanyCard
+Unit --o UnitCard
+
+CompanyCard "1" --> "0..*" Phone
+CompanyCard "1" --> "0..*" Work_Hour
+CompanyCard "1" --> "0..*" Reception
 
 
 
+Report "1" --> "0..*" DocumentType
+DocumentType "1" --> "0..*" Document
 
-Organization "1" --> "0..*" Building
-Organization --o OrganizationData 
-Building --o BuildingData 
-
-
-Organization "1" --> "0..*" OrganizationDocument
-Building "1" --> "0..*" BuildingDocument
-
-OrganizationDocumentType "1" --> "0..*" OrganizationDocument
-BuildingDocumentType "1" --> "0..*" BuildingDocument
+Unit "1" --> "0..*" UnitDocument
+Document "1" --> "1" UnitDocument
 
 
-InformationDisclouser_Autogenerate "1" --> "0..*" OrganizationDocument
-InformationDisclouser_Autogenerate "1" --> "0..*" BuildingDocument
-
-
-RateType "1" --> "0..*" Rate
