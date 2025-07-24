@@ -6,7 +6,10 @@ namespace Company.Entities
 {
     public class CompanyDbContext : DbContext
     {
-        public CompanyDbContext(DbContextOptions<CompanyDbContext> options) : base(options) { }
+        public CompanyDbContext()
+        {
+            Database.EnsureCreated();
+        }
 
         public DbSet<Report> Reports { get; set; }
         public DbSet<DocumentType> DocumentTypes { get; set; }
@@ -19,6 +22,13 @@ namespace Company.Entities
         public DbSet<Reception> Receptions { get; set; }
         public DbSet<CompanyCard> CompanyCards { get; set; }
         public DbSet<Company> Companies { get; set; }
+
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseNpgsql("Server=localhost;User Id = postgres; Password=postgres;Port=5432;Database=CompanyDom;");
+            //optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=GameNumber_same;Trusted_Connection=True;");
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
