@@ -2,4 +2,21 @@
 # Данный GITIGNORE-файл был автоматически создан Microsoft(R) Visual Studio.
 ################################################################################
 
+/.vs/ProjectEvaluation
+/.vs/refactoring_site_ooodom/CopilotIndices/17.13.441.19478
+/.vs/refactoring_site_ooodom/DesignTimeBuild
 /.vs/refactoring_site_ooodom/FileContentIndex
+/.vs/refactoring_site_ooodom/v17/.futdcache.v2
+/.vs/refactoring_site_ooodom/v17/.suo
+/.vs/refactoring_site_ooodom/v17/DocumentLayout.backup.json
+/.vs/refactoring_site_ooodom/v17/DocumentLayout.json
+/.vs/refactoring_site_ooodom/v17/DocumentLayout.backup.json
+/.vs/refactoring_site_ooodom/v17/DocumentLayout.json
+/.vs/slnx.sqlite
+/.vs/VSWorkspaceState.json
+/DBContext/bin/Debug/net9.0
+/DBContext/DBContext.csproj
+/DBContext/obj/Debug/net9.0/ref
+/DBContext/obj/Debug/net9.0/refint
+/DBContext/obj/Debug/net9.0
+/DBContext/obj
