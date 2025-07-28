@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "Новый профиль",
+    "Projects": [
+      {
+        "Path": "DBContext\\DBContext.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "webapi\\webapi.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
