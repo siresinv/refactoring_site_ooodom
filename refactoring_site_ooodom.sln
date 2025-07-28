@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBContext", "DBContext\DBContext.csproj", "{9358226D-6765-4BA0-BDAA-33263A12A74B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webapi", "webapi\webapi.csproj", "{EF33FE2B-144F-41CD-A200-ACA2F63C4A59}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,18 @@ Global
 		{9358226D-6765-4BA0-BDAA-33263A12A74B}.Release|x64.Build.0 = Release|Any CPU
 		{9358226D-6765-4BA0-BDAA-33263A12A74B}.Release|x86.ActiveCfg = Release|Any CPU
 		{9358226D-6765-4BA0-BDAA-33263A12A74B}.Release|x86.Build.0 = Release|Any CPU
+		{EF33FE2B-144F-41CD-A200-ACA2F63C4A59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF33FE2B-144F-41CD-A200-ACA2F63C4A59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF33FE2B-144F-41CD-A200-ACA2F63C4A59}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EF33FE2B-144F-41CD-A200-ACA2F63C4A59}.Debug|x64.Build.0 = Debug|Any CPU
+		{EF33FE2B-144F-41CD-A200-ACA2F63C4A59}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EF33FE2B-144F-41CD-A200-ACA2F63C4A59}.Debug|x86.Build.0 = Debug|Any CPU
+		{EF33FE2B-144F-41CD-A200-ACA2F63C4A59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF33FE2B-144F-41CD-A200-ACA2F63C4A59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF33FE2B-144F-41CD-A200-ACA2F63C4A59}.Release|x64.ActiveCfg = Release|Any CPU
+		{EF33FE2B-144F-41CD-A200-ACA2F63C4A59}.Release|x64.Build.0 = Release|Any CPU
+		{EF33FE2B-144F-41CD-A200-ACA2F63C4A59}.Release|x86.ActiveCfg = Release|Any CPU
+		{EF33FE2B-144F-41CD-A200-ACA2F63C4A59}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

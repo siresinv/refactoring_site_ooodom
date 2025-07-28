@@ -8,7 +8,7 @@ namespace Company.Entities
     {
         public CompanyDbContext()
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
 
         public DbSet<Report> Reports { get; set; }
@@ -26,8 +26,8 @@ namespace Company.Entities
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Server=localhost;User Id = postgres; Password=postgres;Port=5432;Database=CompanyDom;");
-            //optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=GameNumber_same;Trusted_Connection=True;");
+            optionsBuilder.UseNpgsql("Server=localhost;User Id=postgres;Password=postgres;Port=5432;Database=CompanyDom;");
+            //optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=CompanyDom;Trusted_Connection=True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
