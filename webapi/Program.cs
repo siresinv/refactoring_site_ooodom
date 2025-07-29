@@ -13,7 +13,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddOpenApi();
 builder.Services.AddDbContext<CompanyDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection") ??
-        "Server=localhost;User Id=postgres;Password=postgres;Port=5432;Database=CompanyDom;"));
+        "Server=(localdb)\\mssqllocaldb;Database=CompanyDom;Trusted_Connection=True;"));
 
 var app = builder.Build();
 
