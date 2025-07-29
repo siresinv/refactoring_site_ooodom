@@ -5,6 +5,7 @@ using DBContext;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+//builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
@@ -12,7 +13,7 @@ builder.Services.AddSwaggerGen();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddDbContext<CompanyDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection") ??
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ??
         "Server=(localdb)\\mssqllocaldb;Database=CompanyDom;Trusted_Connection=True;"));
 
 var app = builder.Build();
@@ -23,9 +24,14 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+//app.UseRouting();
 app.UseHttpsRedirection();
 app.UseSwagger();
 app.UseSwaggerUI();
+
+app.MapControllers();
+
+app.MapGet("/", (CompanyDbContext db) => db.Phones.ToList());
 
 var summaries = new[]
 {

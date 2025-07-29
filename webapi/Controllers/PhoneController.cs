@@ -18,6 +18,7 @@ namespace webapi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Phone>>> GetAll()
         {
+            Console.WriteLine("123123");
             return await _context.Phones.ToListAsync();
         }
 
