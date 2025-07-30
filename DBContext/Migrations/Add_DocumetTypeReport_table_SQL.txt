@@ -1,0 +1,8 @@
+CREATE TABLE [DocumentsTypeReports] (
+    [ReportId] uniqueidentifier NOT NULL,
+    [DocumentTypeId] uniqueidentifier NOT NULL,
+    [id] uniqueidentifier NOT NULL,
+    CONSTRAINT [PK_DocumentsTypeReports] PRIMARY KEY ([DocumentTypeId], [ReportId]),
+    CONSTRAINT [FK_DocumentsTypeReports_DocumentTypes_DocumentTypeId] FOREIGN KEY ([DocumentTypeId]) REFERENCES [DocumentTypes] ([Id]) ON DELETE NO ACTION,
+    CONSTRAINT [FK_DocumentsTypeReports_Reports_ReportId] FOREIGN KEY ([ReportId]) REFERENCES [Reports] ([Id]) ON DELETE NO ACTION
+);

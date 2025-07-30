@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DBContext.Migrations
 {
     /// <inheritdoc />
-    public partial class toMSSQL : Migration
+    public partial class Initial_2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -202,6 +202,29 @@ namespace DBContext.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DocumentsTypeReports",
+                columns: table => new
+                {
+                    ReportId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DocumentTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DocumentsTypeReports", x => new { x.DocumentTypeId, x.ReportId });
+                    table.ForeignKey(
+                        name: "FK_DocumentsTypeReports_DocumentTypes_DocumentTypeId",
+                        column: x => x.DocumentTypeId,
+                        principalTable: "DocumentTypes",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_DocumentsTypeReports_Reports_ReportId",
+                        column: x => x.ReportId,
+                        principalTable: "Reports",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UnitDocuments",
                 columns: table => new
                 {
@@ -237,6 +260,11 @@ namespace DBContext.Migrations
                 column: "DocumentTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DocumentsTypeReports_ReportId",
+                table: "DocumentsTypeReports",
+                column: "ReportId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DocumentTypes_ReportId",
                 table: "DocumentTypes",
                 column: "ReportId");
@@ -270,6 +298,9 @@ namespace DBContext.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "DocumentsTypeReports");
+
             migrationBuilder.DropTable(
                 name: "Phones");
 

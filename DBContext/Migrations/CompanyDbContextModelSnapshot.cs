@@ -302,6 +302,24 @@ namespace DBContext.Migrations
                     b.ToTable("WorkHours");
                 });
 
+            modelBuilder.Entity("DBContext.Entities.Company.DocumentTypeReport", b =>
+                {
+                    b.Property<Guid>("DocumentTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ReportId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("DocumentTypeId", "ReportId");
+
+                    b.HasIndex("ReportId");
+
+                    b.ToTable("DocumentsTypeReports");
+                });
+
             modelBuilder.Entity("Company.Entities.Document", b =>
                 {
                     b.HasOne("Company.Entities.CompanyCard", null)
@@ -375,6 +393,25 @@ namespace DBContext.Migrations
                         .WithMany("WorkHours")
                         .HasForeignKey("CompanyCardId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DBContext.Entities.Company.DocumentTypeReport", b =>
+                {
+                    b.HasOne("Company.Entities.DocumentType", "DocumentType")
+                        .WithMany()
+                        .HasForeignKey("DocumentTypeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Company.Entities.Report", "Report")
+                        .WithMany()
+                        .HasForeignKey("ReportId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("DocumentType");
+
+                    b.Navigation("Report");
                 });
 
             modelBuilder.Entity("Company.Entities.Company", b =>

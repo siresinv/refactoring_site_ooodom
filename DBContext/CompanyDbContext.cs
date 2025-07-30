@@ -1,4 +1,6 @@
+using DBContext.Entities.Company;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using System;
 using System.Collections.Generic;
 
@@ -12,6 +14,7 @@ namespace Company.Entities
         }
 
         public DbSet<Report> Reports { get; set; }
+        public DbSet<DocumentTypeReport> DocumentsTypeReports { get; set; }
         public DbSet<DocumentType> DocumentTypes { get; set; }
         public DbSet<Document> Documents { get; set; }
         public DbSet<UnitDocument> UnitDocuments { get; set; }
@@ -37,6 +40,10 @@ namespace Company.Entities
             // UnitDocument: composite key
             modelBuilder.Entity<UnitDocument>()
                 .HasKey(ud => new { ud.UnitId, ud.DocumentId });
+
+            // DocumetntTypeReport: composite key
+            modelBuilder.Entity<DocumentTypeReport>()
+                .HasKey(dtr => new { dtr.DocumentTypeId, dtr.ReportId });
 
             // Report - DocumentType (many-to-many)
             modelBuilder.Entity<Report>()
@@ -69,6 +76,28 @@ namespace Company.Entities
                         j.HasKey(t => new { t.UnitId, t.DocumentId });
                     }
                 );
+
+            // DocType - Report (many-to-many via DocumentTypeReport)
+            modelBuilder.Entity<DocumentType>()
+                .HasMany(dt => dt.Reports)
+                .WithMany()
+                .UsingEntity<DocumentTypeReport>(
+                    j => j
+                        .HasOne(dtr => dtr.Report)
+                        .WithMany()
+                        .HasForeignKey(dtr => dtr.ReportId)
+                        .OnDelete(DeleteBehavior.NoAction),
+                    j => j
+                        .HasOne(dtr => dtr.DocumentType)
+                        .WithMany()
+                        .HasForeignKey(dtr => dtr.DocumentTypeId)
+                        .OnDelete(DeleteBehavior.NoAction),
+                    j =>
+                    {
+                        j.HasKey(t => new { t.DocumentTypeId, t.ReportId });
+                    }
+                );
+
 
             // Company - Unit (one-to-many)
             modelBuilder.Entity<Company>()

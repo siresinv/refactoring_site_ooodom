@@ -1,0 +1,14 @@
+﻿using Company.Entities;
+
+namespace DBContext.Entities.Company
+{
+    public class DocumentTypeReport
+    {
+        public Guid id { get; set; }
+        public Guid ReportId { get; set; }
+        public Guid DocumentTypeId { get; set; }
+
+        public virtual Report Report { get; set; }
+        public virtual DocumentType DocumentType { get; set; }
+    }
+}

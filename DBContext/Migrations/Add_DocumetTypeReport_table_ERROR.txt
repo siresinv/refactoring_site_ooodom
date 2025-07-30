@@ -1,0 +1,3 @@
+Introducing FOREIGN KEY constraint 'FK_DocumentsTypeReports_Reports_ReportId' on table 'DocumentsTypeReports' may cause cycles or multiple cascade paths. Specify ON DELETE NO ACTION or ON UPDATE NO ACTION, or modify other FOREIGN KEY constraints.
+Сообщение 1750, уровень 16, состояние 1, строка 1
+Could not create constraint or index. See previous errors.
