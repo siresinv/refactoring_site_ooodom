@@ -23,3 +23,4 @@
 /DBContext/obj/Debug/net9.0/DBContext.GeneratedMSBuildEditorConfig.editorconfig
 /webapi/obj
 /webapi/bin/Debug/net9.0
+/DBContext/obj/Debug/net9.0/DBContext.GlobalUsings.g.cs
