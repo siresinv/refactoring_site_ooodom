@@ -8,6 +8,7 @@ namespace Company.Entities
         public Guid Id { get; set; }
         public virtual ICollection<Document> Documents { get; set; }
 
+        public UnitCard Card { get; set; }
         public Unit()
         {
             Documents = new List<Document>();
