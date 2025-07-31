@@ -17,15 +17,19 @@ namespace Company.Entities
         public string Site { get; set; }
         public virtual ICollection<WorkHour> WorkHours { get; set; }
         public virtual ICollection<Reception> Receptions { get; set; }
-        public virtual ICollection<Document> Documents { get; set; }
+        //public virtual ICollection<Document> Documents { get; set; }
         public string LocationLink { get; set; }
+
+
+        public Company Company { get; set; }
+        public Guid CompanyId { get; set; }
 
         public CompanyCard()
         {
             Phones = new List<Phone>();
             WorkHours = new List<WorkHour>();
             Receptions = new List<Reception>();
-            Documents = new List<Document>();
+            //Documents = new List<Document>();
         }
     }
 } 

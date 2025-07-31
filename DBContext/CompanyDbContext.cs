@@ -118,10 +118,10 @@ namespace Company.Entities
                 .HasMany(cc => cc.Receptions)
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<CompanyCard>()
+            /*modelBuilder.Entity<CompanyCard>()
                 .HasMany(cc => cc.Documents)
                 .WithOne()
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Cascade);*/
         }
     }
 }
