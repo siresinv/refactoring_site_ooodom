@@ -11,5 +11,8 @@ namespace Company.Entities
         public int Year { get; set; }
         public int Version { get; set; }
         public string StorageLink { get; set; }
+
+
+        public UnitDocument UnitDocument { get; set; }
     }
 } 

@@ -58,7 +58,7 @@ namespace Company.Entities
                 .HasForeignKey(d => d.DocumentTypeId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Unit - Document (many-to-many via UnitDocument)
+/*            // Unit - Document (many-to-many via UnitDocument)
             modelBuilder.Entity<Unit>()
                 .HasMany(u => u.Documents)
                 .WithMany()
@@ -75,7 +75,7 @@ namespace Company.Entities
                     {
                         j.HasKey(t => new { t.UnitId, t.DocumentId });
                     }
-                );
+                );*/
 
             // DocType - Report (many-to-many via DocumentTypeReport)
             modelBuilder.Entity<DocumentType>()
