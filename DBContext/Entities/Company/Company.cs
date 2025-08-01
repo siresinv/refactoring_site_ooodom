@@ -10,6 +10,7 @@ namespace Company.Entities
 
         public CompanyCard CompanyCard { get; set; }
 
+        public ICollection<Document> Documents { get; set; }
         public Company()
         {
             Units = new List<Unit>();

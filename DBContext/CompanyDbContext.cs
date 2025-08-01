@@ -105,6 +105,12 @@ namespace Company.Entities
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Company>()
+                .HasMany(c => c.Documents)
+                .WithOne()
+                .OnDelete(DeleteBehavior.NoAction);
+
+
             // CompanyCard - Phones, WorkHours, Receptions, Documents (one-to-many)
             modelBuilder.Entity<CompanyCard>()
                 .HasMany(cc => cc.Phones)
