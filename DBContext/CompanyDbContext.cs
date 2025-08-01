@@ -14,7 +14,7 @@ namespace Company.Entities
         }
 
         public DbSet<Report> Reports { get; set; }
-        public DbSet<DocumentTypeReport> DocumentsTypeReports { get; set; }
+        //public DbSet<DocumentTypeReport> DocumentsTypeReports { get; set; }
         public DbSet<DocumentType> DocumentTypes { get; set; }
         public DbSet<Document> Documents { get; set; }
         public DbSet<UnitDocument> UnitDocuments { get; set; }
@@ -42,14 +42,14 @@ namespace Company.Entities
                 .HasKey(ud => new { ud.UnitId, ud.DocumentId });
 
             // DocumetntTypeReport: composite key
-            modelBuilder.Entity<DocumentTypeReport>()
-                .HasKey(dtr => new { dtr.DocumentTypeId, dtr.ReportId });
+            /*modelBuilder.Entity<DocumentTypeReport>()
+                .HasKey(dtr => new { dtr.DocumentTypeId, dtr.ReportId });*/
 
             // Report - DocumentType (many-to-many)
-            modelBuilder.Entity<Report>()
+            /*modelBuilder.Entity<Report>()
                 .HasMany(r => r.DocumentTypes)
                 .WithOne()
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Cascade);*/
 
             // DocumentType - Document (one-to-many)
             modelBuilder.Entity<DocumentType>()
@@ -78,7 +78,7 @@ namespace Company.Entities
                 );*/
 
             // DocType - Report (many-to-many via DocumentTypeReport)
-            modelBuilder.Entity<DocumentType>()
+            /*modelBuilder.Entity<DocumentType>()
                 .HasMany(dt => dt.Reports)
                 .WithMany()
                 .UsingEntity<DocumentTypeReport>(
@@ -96,7 +96,7 @@ namespace Company.Entities
                     {
                         j.HasKey(t => new { t.DocumentTypeId, t.ReportId });
                     }
-                );
+                );*/
 
 
             // Company - Unit (one-to-many)
