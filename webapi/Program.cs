@@ -1,6 +1,9 @@
 //using DBContext.Entities;
 using Microsoft.EntityFrameworkCore;
 using DBContext;
+//using DBContext.MappingProfiles;
+using webapi.MappingProfiles;
+//using Au
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +18,8 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<CompanyDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ??
         "Server=(localdb)\\mssqllocaldb;Database=CompanyDom;Trusted_Connection=True;"));
+
+builder.Services.AddAutoMapper(cfg => { }, typeof(AppMappingProfile));
 
 var app = builder.Build();
 

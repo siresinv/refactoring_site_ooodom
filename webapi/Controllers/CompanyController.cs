@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DBContext.Entities;
 using DBContext;
+using AutoMapper;
+using DBContext.DTO;
 
 namespace webapi.Controllers
 {
@@ -10,15 +12,20 @@ namespace webapi.Controllers
     public class CompanyController : ControllerBase
     {
         private readonly CompanyDbContext _context;
-        public CompanyController(CompanyDbContext context)
+        private readonly IMapper _mapper;
+        public CompanyController(CompanyDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Company>>> GetAll()
+        public async Task<ActionResult<IEnumerable<CompanyDTO>>> GetAll()
         {
-            return await _context.Companies.ToListAsync();
+            var companies = await _context.Companies.ToListAsync();
+            var companiesDTO = _mapper.Map<List<CompanyDTO>>(companies);
+            //return await _context.Companies.ToListAsync();
+            return Ok(companiesDTO);
         }
 
         [HttpGet("{id}")]
