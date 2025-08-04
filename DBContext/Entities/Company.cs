@@ -6,6 +6,10 @@ namespace DBContext.Entities
     public class Company
     {
         public Guid Id { get; set; }
+        public string Name { get; set; }
+        public string Shortname { get; set; }
+
+
         public virtual ICollection<Unit> Units { get; set; }
 
         public CompanyCard CompanyCard { get; set; }

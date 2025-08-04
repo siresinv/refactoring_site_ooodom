@@ -6,8 +6,7 @@ namespace DBContext.Entities
     public class CompanyCard
     {
         public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Shortname { get; set; }
+
         public string DirectorFullName { get; set; }
         public string Url { get; set; }
         public string Post { get; set; }
