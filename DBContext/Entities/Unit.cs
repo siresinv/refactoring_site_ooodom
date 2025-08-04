@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Company.Entities
+namespace DBContext.Entities
 {
     public class Unit
     {

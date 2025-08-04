@@ -1,6 +1,6 @@
 using System;
 
-namespace Company.Entities
+namespace DBContext.Entities
 {
     public class Document
     {

@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Company.Entities;
+//using Company.Entities;
 using DBContext;
+using DBContext.Entities;
 
 namespace webapi.Controllers
 {

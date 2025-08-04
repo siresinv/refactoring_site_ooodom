@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Company.Entities;
-//using Company = Company.Entities.Company;
+using DBContext.Entities;
 using DBContext;
 
 namespace webapi.Controllers
@@ -17,13 +16,13 @@ namespace webapi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Company.Entities.Company>>> GetAll()
+        public async Task<ActionResult<IEnumerable<Company>>> GetAll()
         {
             return await _context.Companies.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Company.Entities.Company>> Get(Guid id)
+        public async Task<ActionResult<Company>> Get(Guid id)
         {
             var entity = await _context.Companies.FindAsync(id);
             if (entity == null) return NotFound();
@@ -31,7 +30,7 @@ namespace webapi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Company.Entities.Company>> Create(Company.Entities.Company company)
+        public async Task<ActionResult<Company>> Create(Company company)
         {
             _context.Companies.Add(company);
             await _context.SaveChangesAsync();
@@ -39,7 +38,7 @@ namespace webapi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, Company.Entities.Company company)
+        public async Task<IActionResult> Update(Guid id, Company company)
         {
             if (id != company.Id) return BadRequest();
             _context.Entry(company).State = EntityState.Modified;

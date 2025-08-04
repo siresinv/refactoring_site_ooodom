@@ -1,10 +1,12 @@
-using DBContext.Entities.Company;
+using DBContext.Entities;
+//using DBContext.Entities.Company;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System;
 using System.Collections.Generic;
 
-namespace Company.Entities
+namespace DBContext
+
 {
     public class CompanyDbContext : DbContext
     {

@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using Company.Entities;
+//using Company.Entities;
+using DBContext;
 
 Console.WriteLine("Hello, World!");
 

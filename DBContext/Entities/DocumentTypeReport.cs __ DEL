@@ -1,6 +1,4 @@
-﻿using Company.Entities;
-
-namespace DBContext.Entities.Company
+﻿namespace DBContext.Entities
 {
     public class DocumentTypeReport
     {
