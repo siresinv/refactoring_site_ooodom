@@ -1,8 +1,8 @@
 using System;
 
-namespace webapi.DTO
+namespace DBContext.DTO
 {
-    public class WorkHourDTO
+    public class PhoneDTO
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

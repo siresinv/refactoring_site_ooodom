@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace webapi.DTO
+namespace DBContext.DTO
 {
     public class ReportDTO
     {

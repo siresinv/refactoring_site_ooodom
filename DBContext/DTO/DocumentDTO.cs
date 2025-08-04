@@ -1,6 +1,6 @@
 using System;
 
-namespace webapi.DTO
+namespace DBContext.DTO
 {
     public class DocumentDTO
     {
