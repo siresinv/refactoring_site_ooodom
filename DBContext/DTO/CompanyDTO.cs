@@ -6,6 +6,7 @@ namespace DBContext.DTO
     public class CompanyDTO
     {
         public Guid Id { get; set; }
-        public List<Guid> UnitIds { get; set; }
+        public string Name { get; set; }
+        public string Shortname { get; set; }
     }
 } 
