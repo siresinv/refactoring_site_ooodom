@@ -37,8 +37,9 @@ namespace webapi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Company>> Create(Company company)
+        public async Task<ActionResult<CompanyDTO>> Create(CompanyDTO companyDTO)
         {
+            var company = _mapper.Map<Company>(companyDTO);
             _context.Companies.Add(company);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(Get), new { id = company.Id }, company);
