@@ -6,9 +6,9 @@ namespace DBContext.DTO
     {
         public Guid Id { get; set; }
         public Guid DocumentTypeId { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
         public int Year { get; set; }
         public int Version { get; set; }
-        public string StorageLink { get; set; }
+        public string StorageLink { get; set; } = null!;
     }
 } 
