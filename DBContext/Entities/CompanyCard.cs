@@ -7,28 +7,26 @@ namespace DBContext.Entities
     {
         public Guid Id { get; set; }
 
-        public string DirectorFullName { get; set; }
-        public string Url { get; set; }
-        public string Post { get; set; }
-        public string Address { get; set; }
-        public virtual ICollection<Phone> Phones { get; set; }
-        public string Email { get; set; }
-        public string Site { get; set; }
-        public virtual ICollection<WorkHour> WorkHours { get; set; }
-        public virtual ICollection<Reception> Receptions { get; set; }
-        //public virtual ICollection<Document> Documents { get; set; }
-        public string LocationLink { get; set; }
+        public string DirectorFullName { get; set; } = null!;
+        public string SertificateGRUL { get; set; } = null!;
+        public string Post { get; set; } = null!;
+        public string Address { get; set; } = null!;
+        public virtual ICollection<Phone> Phones { get; set; } = null!;
+        public string Email { get; set; } = null!;
+        public string Site { get; set; } = null!;
+        public virtual ICollection<WorkHour> WorkHours { get; set; } = null!;
+        public virtual ICollection<Reception> Receptions { get; set; } = null!;
+        public string? LocationLink { get; set; }
 
 
-        public Company Company { get; set; }
+        public Company Company { get; set; } = null!;
         public Guid CompanyId { get; set; }
 
-        public CompanyCard()
+/*        public CompanyCard()
         {
             Phones = new List<Phone>();
             WorkHours = new List<WorkHour>();
             Receptions = new List<Reception>();
-            //Documents = new List<Document>();
-        }
+        }*/
     }
 } 

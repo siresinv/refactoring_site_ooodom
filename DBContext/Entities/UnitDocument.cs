@@ -7,10 +7,10 @@ namespace DBContext.Entities
         public Guid Id { get; set; }
         //public Guid UnitId { get; set; }
         public Guid DocumentId { get; set; }
-        public Document Document { get; set; }
+        public Document Document { get; set; } = null!;
 
 
         public Guid UnitId { get; set; }
-        public virtual Unit Unit { get; set; }
+        public virtual Unit Unit { get; set; } = null!;
     }
 } 

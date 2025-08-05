@@ -6,14 +6,14 @@ namespace DBContext.Entities
     public class Unit
     {
         public Guid Id { get; set; }
-        public virtual ICollection<UnitDocument> Documents { get; set; }
+        public virtual ICollection<UnitDocument>? Documents { get; set; }
 
 
 
-        public UnitCard Card { get; set; }
-        public Unit()
+        public UnitCard Card { get; set; } = null!;
+        /*public Unit()
         {
             Documents = new List<UnitDocument>();
-        }
+        }*/
     }
 } 

@@ -4,6 +4,7 @@ using DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DBContext.Migrations
 {
     [DbContext(typeof(CompanyDbContext))]
-    partial class CompanyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250805120429_Change_required_fields_CompanyCard")]
+    partial class Change_required_fields_CompanyCard
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,7 +41,7 @@ namespace DBContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Companies", (string)null);
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("DBContext.Entities.CompanyCard", b =>
@@ -82,7 +85,7 @@ namespace DBContext.Migrations
                     b.HasIndex("CompanyId")
                         .IsUnique();
 
-                    b.ToTable("CompanyCards", (string)null);
+                    b.ToTable("CompanyCards");
                 });
 
             modelBuilder.Entity("DBContext.Entities.Document", b =>
@@ -117,7 +120,7 @@ namespace DBContext.Migrations
 
                     b.HasIndex("DocumentTypeId");
 
-                    b.ToTable("Documents", (string)null);
+                    b.ToTable("Documents");
                 });
 
             modelBuilder.Entity("DBContext.Entities.DocumentType", b =>
@@ -136,7 +139,7 @@ namespace DBContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DocumentTypes", (string)null);
+                    b.ToTable("DocumentTypes");
                 });
 
             modelBuilder.Entity("DBContext.Entities.Phone", b =>
@@ -160,7 +163,7 @@ namespace DBContext.Migrations
 
                     b.HasIndex("CompanyCardId");
 
-                    b.ToTable("Phones", (string)null);
+                    b.ToTable("Phones");
                 });
 
             modelBuilder.Entity("DBContext.Entities.Reception", b =>
@@ -184,7 +187,7 @@ namespace DBContext.Migrations
 
                     b.HasIndex("CompanyCardId");
 
-                    b.ToTable("Receptions", (string)null);
+                    b.ToTable("Receptions");
                 });
 
             modelBuilder.Entity("DBContext.Entities.Report", b =>
@@ -203,7 +206,7 @@ namespace DBContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Reports", (string)null);
+                    b.ToTable("Reports");
                 });
 
             modelBuilder.Entity("DBContext.Entities.Unit", b =>
@@ -219,7 +222,7 @@ namespace DBContext.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("Units", (string)null);
+                    b.ToTable("Units");
                 });
 
             modelBuilder.Entity("DBContext.Entities.UnitCard", b =>
@@ -263,7 +266,7 @@ namespace DBContext.Migrations
                     b.HasIndex("UnitId")
                         .IsUnique();
 
-                    b.ToTable("UnitCards", (string)null);
+                    b.ToTable("UnitCards");
                 });
 
             modelBuilder.Entity("DBContext.Entities.UnitDocument", b =>
@@ -282,7 +285,7 @@ namespace DBContext.Migrations
                     b.HasIndex("DocumentId")
                         .IsUnique();
 
-                    b.ToTable("UnitDocuments", (string)null);
+                    b.ToTable("UnitDocuments");
                 });
 
             modelBuilder.Entity("DBContext.Entities.WorkHour", b =>
@@ -306,7 +309,7 @@ namespace DBContext.Migrations
 
                     b.HasIndex("CompanyCardId");
 
-                    b.ToTable("WorkHours", (string)null);
+                    b.ToTable("WorkHours");
                 });
 
             modelBuilder.Entity("DocumentTypeReport", b =>
@@ -321,7 +324,7 @@ namespace DBContext.Migrations
 
                     b.HasIndex("ReportsId");
 
-                    b.ToTable("DocumentTypeReport", (string)null);
+                    b.ToTable("DocumentTypeReport");
                 });
 
             modelBuilder.Entity("DBContext.Entities.CompanyCard", b =>

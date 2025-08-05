@@ -6,14 +6,14 @@ namespace DBContext.Entities
     {
         public Guid Id { get; set; }
         public Guid DocumentTypeId { get; set; }
-        public virtual DocumentType Type { get; set; }
-        public string Name { get; set; }
+        public DocumentType Type { get; set; } = null!;
+        public string Name { get; set; } = null!;
         public int Year { get; set; }
         public int Version { get; set; }
-        public string StorageLink { get; set; }
+        public string StorageLink { get; set; } = null!;
 
 
-        public UnitDocument UnitDocument { get; set; }
+        public UnitDocument UnitDocument { get; set; } = null!;
 
 
         /*public Company Company { get; set; }
