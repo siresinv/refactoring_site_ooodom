@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DBContext;
 using DBContext.Entities;
+using AutoMapper;
+using DBContext.DTO;
+
 
 namespace webapi.Controllers
 {
@@ -10,9 +13,11 @@ namespace webapi.Controllers
     public class CompanyCardController : ControllerBase
     {
         private readonly CompanyDbContext _context;
-        public CompanyCardController(CompanyDbContext context)
+        private readonly IMapper _mapper;
+        public CompanyCardController(CompanyDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -30,8 +35,9 @@ namespace webapi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CompanyCard>> Create(CompanyCard companyCard)
+        public async Task<ActionResult<CompanyCardDTO>> Create(CompanyCardDTO companyCardDTO)
         {
+            var companyCard = _mapper.Map<CompanyCard>(companyCardDTO);
             _context.CompanyCards.Add(companyCard);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(Get), new { id = companyCard.Id }, companyCard);

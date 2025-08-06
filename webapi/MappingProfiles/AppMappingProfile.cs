@@ -12,6 +12,8 @@ namespace webapi.MappingProfiles
         {
             CreateMap<Company, CompanyDTO>();
             CreateMap<Company, CompanyDTO>().ReverseMap();
+            CreateMap<CompanyCard, CompanyCardDTO>();
+            CreateMap<CompanyCard, CompanyCardDTO>().ReverseMap();
         }
     }
 }
