@@ -10,11 +10,11 @@ namespace DBContext.Entities
         public string Shortname { get; set; } = null!;
 
 
-        public virtual ICollection<Unit>? Units { get; set; }
+        public virtual List<Unit>? Units { get; set; }
 
         public CompanyCard? CompanyCard { get; set; }
 
-        public virtual ICollection<Document>? Documents { get; set; }
+        public virtual List<Document>? Documents { get; set; }
         /*public Company()
         {
             Units = new List<Unit>();

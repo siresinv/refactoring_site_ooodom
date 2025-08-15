@@ -10,7 +10,7 @@ using AutoMapper;
 namespace webapi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/{id}")]
     public class CompanyUpdateController : ControllerBase
     {
         private readonly CompanyDbContext _context;
@@ -22,58 +22,13 @@ namespace webapi.Controllers
             _mapper = mapper;
         }
 
-        // DTO для обновления компании с карточкой
-        public class UpdateCompanyWithCardRequest
-        {
-            public Guid Id { get; set; }
-            public string Name { get; set; } = null!;
-            public string Shortname { get; set; } = null!;
-            public CompanyCardUpdateData CompanyCard { get; set; } = null!;
-        }
-
-        public class CompanyCardUpdateData
-        {
-            //public Guid Id { get; set; }
-            public Guid CompanyId { get; set; }
-
-            public string DirectorFullName { get; set; } = null!;
-            public string SertificateGRUL { get; set; } = null!;
-            public string Post { get; set; } = null!;
-            public string Address { get; set; } = null!;
-            public string Email { get; set; } = null!;
-            public string Site { get; set; } = null!;
-            public string? LocationLink { get; set; }
-            /////////////////////////////добавил свойства/////////////////////////////////////////////
-            //////////////////////////////////////////////////////////////////////////
-            //////////////////////////////////////////////////////////////////////////
-            //////////////////////////////////////////////////////////////////////////
-            public ICollection<PhoneDTO> Phones { get; set; } = null!;
-            public ICollection<WorkHourDTO> WorkHours { get; set; } = null!;
-            public ICollection<ReceptionDTO> Receptions { get; set; } = null!;
-
-
-        }
-
-
-
-
-
-        ////////////////////////////3 classes - уже в юзинге//////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////////////////
-
-
+       
         // POST метод для обновления компании и связанной карточки
         [HttpPost("update-company-with-card")]
-        public async Task<IActionResult> UpdateCompanyWithCard([FromBody] UpdateCompanyWithCardRequest request)
+        public async Task<IActionResult> UpdateCompanyWithCard([FromBody] CompanyDTO request, [FromRoute] Guid id)
         {
             try
             {
-                // Находим компанию с включенной карточкой
-                ///////////////////////////////////////////////////////////////
-                ///////////////////////////////////////////////////////////////
-                ///////////////////////////////////////////////////////////////
                 var company = await _context.Companies
                     .Include(c => c.CompanyCard)
                         .ThenInclude(cc => cc!.Phones)
@@ -81,16 +36,11 @@ namespace webapi.Controllers
                         .ThenInclude(cc => cc!.Receptions)
                     .Include(c => c.CompanyCard)
                         .ThenInclude(cc => cc!.WorkHours)
-
-                    .FirstOrDefaultAsync(c => c.Id == request.Id)
-                    ;
-                Console.WriteLine();
-                Console.WriteLine(company?.Id);
-                Console.WriteLine();
+                    .FirstOrDefaultAsync(c => c.Id == id);
 
                 if (company == null)
                 {
-                    return NotFound($"Компания с ID {request.Id} не найдена");
+                    return NotFound($"Компания с ID {id} не найдена");
                 }
 
                 // Обновляем данные компании
@@ -100,11 +50,6 @@ namespace webapi.Controllers
                 // Обновляем или создаем карточку компании
                 if (company.CompanyCard == null)
                 {
-                    // Создаем новую карточку, если её нет
-                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!////////////////////создаются еще сущности//////////////////////////////////////
-                    //////////////////////////////////////////////////////////
-                    //////////////////////////////////////////////////////////
-                    //////////////////////////////////////////////////////////
                     company.CompanyCard = new CompanyCard
                     {
                         //Id = Guid.NewGuid(),
@@ -118,15 +63,7 @@ namespace webapi.Controllers
                         LocationLink = request.CompanyCard.LocationLink
                     };
 
-                    Console.WriteLine();
-                    Console.WriteLine(company.Id);
-                    Console.WriteLine();
 
-
-                    //////////////////////////////////////////////////////////
-                    //////////////////////////////////////////////////////////
-                    //////////////////////////////////////////////////////////
-                    //////////////////////////////////////////////////////////
                     if (company.CompanyCard.Phones == null)
                     {
                         company.CompanyCard.Phones = new List<Phone>();
@@ -136,34 +73,6 @@ namespace webapi.Controllers
                             var phone = _mapper.Map<Phone>(phoneDTO);
                             company.CompanyCard.Phones.Add(phone);
                         }
-                        
-                        
-                        
-
-                        //company.CompanyCard.Phones = request.CompanyCard.Phones.ToList();
-
-                        /*company.CompanyCard.Phones = new List<Phone>
-                        {
-                            new Phone
-                            {
-                                //Id = Guid.NewGuid(),
-                                Name = "dfgdsg",
-                                Value = "sdfdsf",
-                                CompanyCardId = company.CompanyCard.Id
-                            },
-
-                            new Phone
-                            {
-                                //Id = Guid.NewGuid(),
-                                Name = "dfgdsg",
-                                Value = "sdfdsf",
-                                CompanyCardId = company.CompanyCard.Id
-                            }
-                        };*/
-
-                        Console.WriteLine();
-                        Console.WriteLine($"!!! - {company.CompanyCard.CompanyId}");
-                        Console.WriteLine();
                     }
 
 
@@ -178,37 +87,7 @@ namespace webapi.Controllers
                         }
                     }
 
-                    /*if (company.CompanyCard.WorkHours == null)
-                    {
-
-                        var workhours = _mapper.Map<WorkHour>(request.CompanyCard.WorkHours);
-                        company.CompanyCard.WorkHours.Add(workhours);
-
-                        *//*company.CompanyCard.WorkHours = new List<WorkHour>
-                        {
-                            new WorkHour
-                            {
-                                //Id = Guid.NewGuid(),
-                                Name = "dfgdsg",
-                                Value = "sdfdsf",
-                                CompanyCardId = company.CompanyCard.Id
-                            },
-
-                            new WorkHour
-                            {
-                                //Id = Guid.NewGuid(),
-                                Name = "dfgdsg",
-                                Value = "sdfdsf",
-                                CompanyCardId = company.CompanyCard.Id
-
-                            }
-                        };*//*
-                    }*/
-
-
-
-
-                    
+                                      
 
                     if (company.CompanyCard.Receptions == null)
                     {
@@ -221,40 +100,7 @@ namespace webapi.Controllers
                         }
 
                     }
-                            /*if (company.CompanyCard.Receptions == null)
-                            {
-                                var receptions = _mapper.Map<Reception>(request.CompanyCard.Receptions);
-                                company.CompanyCard.Receptions.Add(receptions);
-
-                                *//*company.CompanyCard.Receptions = new List<Reception>
-                                {
-                                    new Reception
-                                    {
-                                        //Id = Guid.NewGuid(),
-                                        Name = "dfgdsg",
-                                        Value = "sdfdsf",
-                                        CompanyCardId = company.CompanyCard.Id
-
-                                    },
-
-                                    new Reception
-                                    {
-                                        //Id = Guid.NewGuid(),
-                                        Name = "dfgdsg",
-                                        Value = "sdfdsf",
-                                        CompanyCardId = company.CompanyCard.Id
-
-                                    }
-                                };*//*
-                            }*/
-
-                            //////////////////////////////////////////////////////////
-                            //////////////////////////////////////////////////////////
-                            //////////////////////////////////////////////////////////
-                            //////////////////////////////////////////////////////////
-
-
-                        }
+                }
                 else
                 {
                     // Обновляем существующую карточку
@@ -317,7 +163,7 @@ namespace webapi.Controllers
 
         // Альтернативный метод для обновления только карточки компании
         [HttpPost("update-company-card")]
-        public async Task<IActionResult> UpdateCompanyCard(Guid companyId, [FromBody] CompanyCardUpdateData cardData)
+        public async Task<IActionResult> UpdateCompanyCard(Guid companyId, [FromBody] CompanyCardDTO cardData)
         {
             try
             {

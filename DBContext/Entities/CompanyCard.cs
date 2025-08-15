@@ -11,11 +11,11 @@ namespace DBContext.Entities
         public string SertificateGRUL { get; set; } = null!;
         public string Post { get; set; } = null!;
         public string Address { get; set; } = null!;
-        public virtual ICollection<Phone> Phones { get; set; } = null!;
+        public virtual List<Phone> Phones { get; set; } = null!;
         public string Email { get; set; } = null!;
         public string Site { get; set; } = null!;
-        public virtual ICollection<WorkHour> WorkHours { get; set; } = null!;
-        public virtual ICollection<Reception> Receptions { get; set; } = null!;
+        public virtual List<WorkHour> WorkHours { get; set; } = null!;
+        public virtual List<Reception> Receptions { get; set; } = null!;
         public string? LocationLink { get; set; }
 
 

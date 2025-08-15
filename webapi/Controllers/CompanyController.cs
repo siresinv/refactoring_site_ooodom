@@ -22,7 +22,16 @@ namespace webapi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CompanyDTO>>> GetAll()
         {
-            var companies = await _context.Companies.ToListAsync();
+            var companies = await _context.Companies
+                .Include(c => c.CompanyCard)
+                    .ThenInclude(cc => cc.Phones)
+                .Include(c => c.CompanyCard)
+                    .ThenInclude(cc => cc.Receptions)
+                .Include(c => c.CompanyCard)
+                    .ThenInclude(cc => cc.WorkHours)
+                .ToListAsync();
+
+            //var companies = await _context.Companies.ToListAsync();
             var companiesDTO = _mapper.Map<List<CompanyDTO>>(companies);
             //return await _context.Companies.ToListAsync();
             return Ok(companiesDTO);
@@ -42,7 +51,7 @@ namespace webapi.Controllers
             var company = _mapper.Map<Company>(companyDTO);
             _context.Companies.Add(company);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(Get), new { id = company.Id }, company);
+            return CreatedAtAction(nameof(Get), new { id = company.Id }, companyDTO);
         }
 
         [HttpPut("{id}")]
