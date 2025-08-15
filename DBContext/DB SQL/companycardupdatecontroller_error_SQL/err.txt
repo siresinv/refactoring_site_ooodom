@@ -1,0 +1,26 @@
+exec sp_executesql N'SET NOCOUNT ON;
+UPDATE [Companies] SET [Name] = @p0, [Shortname] = @p1
+OUTPUT 1
+WHERE [Id] = @p2;
+UPDATE [CompanyCards] SET [Address] = @p3, [CompanyId] = @p4, [DirectorFullName] = @p5, [Email] = @p6, [LocationLink] = @p7, [Post] = @p8, [SertificateGRUL] = @p9, [Site] = @p10
+OUTPUT 1
+WHERE [Id] = @p11;
+UPDATE [Phones] SET [CompanyCardId] = @p12, [Name] = @p13, [Value] = @p14
+OUTPUT 1
+WHERE [Id] = @p15;
+UPDATE [Phones] SET [CompanyCardId] = @p16, [Name] = @p17, [Value] = @p18
+OUTPUT 1
+WHERE [Id] = @p19;
+UPDATE [Receptions] SET [CompanyCardId] = @p20, [Name] = @p21, [Value] = @p22
+OUTPUT 1
+WHERE [Id] = @p23;
+UPDATE [Receptions] SET [CompanyCardId] = @p24, [Name] = @p25, [Value] = @p26
+OUTPUT 1
+WHERE [Id] = @p27;
+UPDATE [WorkHours] SET [CompanyCardId] = @p28, [Name] = @p29, [Value] = @p30
+OUTPUT 1
+WHERE [Id] = @p31;
+UPDATE [WorkHours] SET [CompanyCardId] = @p32, [Name] = @p33, [Value] = @p34
+OUTPUT 1
+WHERE [Id] = @p35;
+',N'@p2 uniqueidentifier,@p0 nvarchar(4000),@p1 nvarchar(4000),@p11 uniqueidentifier,@p3 nvarchar(4000),@p4 uniqueidentifier,@p5 nvarchar(4000),@p6 nvarchar(4000),@p7 nvarchar(4000),@p8 nvarchar(4000),@p9 nvarchar(4000),@p10 nvarchar(4000),@p15 uniqueidentifier,@p12 uniqueidentifier,@p13 nvarchar(4000),@p14 nvarchar(4000),@p19 uniqueidentifier,@p16 uniqueidentifier,@p17 nvarchar(4000),@p18 nvarchar(4000),@p23 uniqueidentifier,@p20 uniqueidentifier,@p21 nvarchar(4000),@p22 nvarchar(4000),@p27 uniqueidentifier,@p24 uniqueidentifier,@p25 nvarchar(4000),@p26 nvarchar(4000),@p31 uniqueidentifier,@p28 uniqueidentifier,@p29 nvarchar(4000),@p30 nvarchar(4000),@p35 uniqueidentifier,@p32 uniqueidentifier,@p33 nvarchar(4000),@p34 nvarchar(4000)',@p2='3FA85F64-5717-4562-B3FC-2C963F66AFA6',@p0=N'stringZXCZXC',@p1=N'stringZXCZXC',@p11='33367CF4-4631-44F2-BA55-6264C623CC10',@p3=N'string',@p4='3FA85F64-5717-4562-B3FC-2C963F66AFA6',@p5=N'string',@p6=N'string',@p7=N'string',@p8=N'string',@p9=N'string',@p10=N'string',@p15='0F2C3686-C5A9-472D-B89E-496FFFC0826A',@p12='33367CF4-4631-44F2-BA55-6264C623CC10',@p13=N'dfgdsg',@p14=N'sdfdsf',@p19='B1232A05-9243-40F9-95E0-AD8A8BB6D3D0',@p16='33367CF4-4631-44F2-BA55-6264C623CC10',@p17=N'dfgdsg',@p18=N'sdfdsf',@p23='A551133C-3FE0-47E2-9EBB-47FED48760E9',@p20='33367CF4-4631-44F2-BA55-6264C623CC10',@p21=N'dfgdsg',@p22=N'sdfdsf',@p27='F128EADF-78E8-44D5-BC26-0E9B69A68B64',@p24='33367CF4-4631-44F2-BA55-6264C623CC10',@p25=N'dfgdsg',@p26=N'sdfdsf',@p31='4EAA7193-AADE-4F67-88B6-851A7709F354',@p28='33367CF4-4631-44F2-BA55-6264C623CC10',@p29=N'dfgdsg',@p30=N'sdfdsf',@p35='7E273B34-91CD-4868-9527-1FC241D57791',@p32='33367CF4-4631-44F2-BA55-6264C623CC10',@p33=N'dfgdsg',@p34=N'sdfdsf'

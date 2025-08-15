@@ -12,6 +12,7 @@ namespace DBContext
     {
         public CompanyDbContext(DbContextOptions<CompanyDbContext> options) : base (options)
         {
+            //Database.EnsureDeleted();
             //Database.EnsureCreated();
         }
 
@@ -114,7 +115,8 @@ namespace DBContext
 
 
             // CompanyCard - Phones, WorkHours, Receptions, Documents (one-to-many)
-            modelBuilder.Entity<CompanyCard>()
+
+            /*modelBuilder.Entity<CompanyCard>()
                 .HasMany(cc => cc.Phones)
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
@@ -125,7 +127,9 @@ namespace DBContext
             modelBuilder.Entity<CompanyCard>()
                 .HasMany(cc => cc.Receptions)
                 .WithOne()
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Cascade);*/
+
+
             /*modelBuilder.Entity<CompanyCard>()
                 .HasMany(cc => cc.Documents)
                 .WithOne()
